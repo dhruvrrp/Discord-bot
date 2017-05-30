@@ -29,13 +29,18 @@ async def on_ready():
         svrs[s.name].next_boss = [0]*6
 
 async def errmsg(message):
-    await client.send_message(message.channel, 'Incorrect usage, use -help')
+    await client.send_message(message.channel, 'Incorrect usage, use !basin help')
 
 async def usage(message):
     s = "```Markdown\nUsage\n\nNew Usage options!\nCheck time for next Boss: !basin [Server group number]\nSet time for Basin Boss: !basin set [Server group number] [Minutes since last boss spawn]```\n"
     await client.send_message(message.channel, s)
    
 async def basin(message, ar):
+
+    if ar[1] == 'help':
+        await usage(message)
+        return
+
     s_name = str(message.server.name)
     if len(ar) == 2:
         s_num = int(ar[1]) - 1
