@@ -4,6 +4,9 @@ from datetime import datetime
 import time, asyncio
 import types
 import logging
+import auth
+
+
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.WARNING)
@@ -92,4 +95,4 @@ async def on_message(message):
             await usage(message)
 
 
-client.run('MzE0ODQzNDI0NzAyNTk1MDcz.C_-EWg.uqP7cMBYbAupzIgqBniJQM32Ugs')
+client.run(auth.token)
