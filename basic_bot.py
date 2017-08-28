@@ -70,6 +70,19 @@ async def basin(message, ar):
     else:
         await errmsg(message)
 
+async def music(message, ar):
+    print("Music")
+    opts = {'extract-audio': True,'quiet': True,}
+    user_vc = message.author.voice.voice_channel
+    if user_vc != None:
+        voice = await client.join_voice_channel(user_vc)
+        player = await voice.create_ytdl_player(ar[1],ytdl_options=opts, after=None)
+        player.start()
+    else:
+        await client.send_message(message.channel, 'User is not in a voice channel!')
+
+
+
 @client.event
 async def on_message(message):
     s_name = message.server.name
@@ -79,6 +92,9 @@ async def on_message(message):
 
     if message.author == client.user:
         return
+    if message.content.startswith('!song'):
+        ar = message.content.split()
+        await music(message, ar)
     if message.content.startswith('!dg_bot'):
         await usage(message)
     if message.content.startswith('!basin'):
